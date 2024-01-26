@@ -1,4 +1,3 @@
-
 <h1><?= $unResto['nomR']; ?>
 
     <?php if ($aimer != false) { ?>
@@ -45,8 +44,18 @@
     <?= $unResto['voieAdrR']; ?><br />
     <?= $unResto['cpR']; ?>
     <?= $unResto['villeR']; ?>
-
 </p>
+
+<!-- Map -->
+<div id="mapid" style="width: 300px; height: 200px;"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script type="text/javascript">
+  var map = L.map('mapid').setView([51.505, -0.06], 20); // coordonnées GPS
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+</script>
 
 <h2 id="photos">
     Photos
@@ -90,3 +99,4 @@
     <?php } ?>
 
 </ul>
+

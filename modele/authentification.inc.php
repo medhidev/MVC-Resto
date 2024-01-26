@@ -7,16 +7,17 @@ function login($mailU, $mdpU) {
         session_start();
     }
 
-    $util = getUtilisateurByMailU($mailU);
-    $mdpBD = $util["mdpU"];
+    if (!empty($mailU)){ // si le champs n'est pas vide
+        $util = getUtilisateurByMailU($mailU); // récupère les données de l'utilisateur dans la BDD
+        $mdpBD = $util["mdpU"]; // renvoie le champ mdpU -> l'email de l'utilisateur
 
-    if (trim($mdpBD) == trim(crypt($mdpU, $mdpBD))) {
-        // le mot de passe est celui de l'utilisateur dans la base de donnees
-        $_SESSION["mailU"] = $mailU;
-        $_SESSION["mdpU"] = $mdpBD;
+        if (trim($mdpBD) == trim(crypt($mdpU, $mdpBD))) {
+            // le mot de passe est celui de l'utilisateur dans la base de donnees
+            $_SESSION["mailU"] = $mailU;
+            $_SESSION["mdpU"] = $mdpBD;
+        }
     }
-    else
-        
+
 }
 
 function logout() {

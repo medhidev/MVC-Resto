@@ -34,6 +34,7 @@ function getUtilisateurByMailU($mailU) {
         print "Erreur !: " . $e->getMessage();
         die();
     }
+    
     return $resultat;
 }
 
