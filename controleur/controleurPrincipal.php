@@ -12,6 +12,9 @@ function controleurPrincipal($action) {
     $lesActions["cgu"] = "cgu.php";
     $lesActions["aimer"] = "aimer.php";
 
+    // A enlever
+    $lesActions["test"] = "test.php";
+
     if (array_key_exists($action, $lesActions)) {
         return $lesActions[$action];
     } 
