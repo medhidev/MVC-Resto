@@ -5,5 +5,6 @@ if ( $_SERVER["SCRIPT_FILENAME"] == __FILE__ ){
 }
 
 include "$racine/vue/entete.html.php";
-include "$racine/vue/vueTest.php";
+include "$racine/vue/vueAjoutResto.php";
+
 ?>

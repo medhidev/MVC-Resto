@@ -11,6 +11,8 @@ function controleurPrincipal($action) {
     $lesActions["profil"] = "monProfil.php";
     $lesActions["cgu"] = "cgu.php";
     $lesActions["aimer"] = "aimer.php";
+    // Fonctionnalité
+    $lesActions["addResto"] = "ajoutResto.php";
 
     // A enlever
     $lesActions["test"] = "test.php";

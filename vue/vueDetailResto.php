@@ -48,7 +48,7 @@
 
 <!-- Map -->
 <!-- Affichage du cadre de la map -->
-<div id="map" style="height: 200px;"></div>
+<div id="map" style="height: 200px; z-index: 1;"></div>
 <script>
     // données récupérer dans la Base de donnée
     const adresse = '<?= $unResto['numAdrR']." ".$unResto['voieAdrR']; ?>';
