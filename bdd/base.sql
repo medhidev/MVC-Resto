@@ -210,7 +210,7 @@ CREATE TABLE `resto` (
   `longitudeDegR` float DEFAULT NULL,
   `descR` text,
   `horairesR` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=0;
 
 --
 -- Contenu de la table `resto`

@@ -110,6 +110,63 @@ function getRestosAimesByMailU($mailU) {
     return $resultat;
 }
 
+function insertResto($nom, $num_adresse, $nom_adresse, $cp, $ville, $description
+, $midiSdeb, $midiSfin, $midiWdeb, $midiWfin
+, $soirSdeb, $soirSfin, $soirWdeb, $soirWfin
+, $emporterSdeb, $emporterSfin, $emporterWdeb, $emporterWfin){
+    $resultat = array();
+
+    try {
+        $cnx = connexionPDO();
+        $tableau_horaire = "
+        <table>
+            <thead>
+                <tr>
+                    <th>Ouverture</th><th>Semaine</th>	<th>Week-end</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class='label'>Midi</td>
+                    <td class='cell'>de ".$midiSdeb."h à ".$midiSfin."h</td>
+                    <td class='cell'>de ".$midiWdeb."h à ".$midiWfin."h</td>
+                </tr>
+                <tr>
+                    <td class='label'>Soir</td>
+                    <td class='cell'>de ".$soirSdeb."h à ".$soirSfin."h</td>
+                    <td class='cell'>de ".$soirWdeb."h à ".$soirWfin."h</td>	
+                </tr>
+                <tr>
+                    <td class='label'>À emporter</td>
+                    <td class='cell'>de ".$emporterSdeb."h à ".$emporterSfin."h</td>
+                    <td class='cell'>de ".$emporterWdeb."h à ".$emporterWfin."h</td>
+                </tr>
+            </tbody>
+        </table>";
+
+        $request = "insert into resto(`nomR`, `numAdrR`, `voieAdrR`, `cpR`, `villeR`, `descR`, `horairesR`
+        values (':nom', :num_adresse, ':nom_adresse', :cp, ':ville', ':description', );";
+
+        $req = $cnx->prepare($request);
+
+        // paramètres
+        $req->bindValue(':nom', $nom, PDO::PARAM_STR);
+        $req->bindValue(':num_adresse', $num_adresse, PDO::PARAM_INT);
+        $req->bindValue(':nom_adresse', $nom_adresse, PDO::PARAM_STR);
+        $req->bindValue(':cp', $cp, PDO::PARAM_INT);
+        $req->bindValue(':mailU', $ville, PDO::PARAM_STR);
+        $req->bindValue(':mailU', $description, PDO::PARAM_STR);
+        $req->bindValue(':mailU', $tableau_horaire, PDO::PARAM_STR);
+        $req->execute();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+
+    return $resultat;
+}
+
 if ($_SERVER["SCRIPT_FILENAME"] == __FILE__) {
     // prog principal de test
     header('Content-Type:text/plain');

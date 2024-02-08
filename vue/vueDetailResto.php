@@ -49,6 +49,7 @@
 <!-- Map -->
 <!-- Affichage du cadre de la map -->
 <div id="map" style="height: 200px; z-index: 1;"></div>
+
 <script>
     // données récupérer dans la Base de donnée
     const adresse = '<?= $unResto['numAdrR']." ".$unResto['voieAdrR']; ?>';
@@ -74,8 +75,7 @@
             const mymap = L.map('map').setView([latitude, longitude], 13);
 
             // Ajouter une couche de carte OSM
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            }).addTo(mymap);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(mymap);
 
             // Ajouter un marqueur à la position spécifiée
             L.marker([latitude, longitude]).addTo(mymap);
