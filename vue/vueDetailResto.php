@@ -48,43 +48,42 @@
 
 <!-- Map -->
 <!-- Affichage du cadre de la map -->
-<div id="map" style="height: 200px; z-index: 1;"></div>
+<div id="map" style="height: 200px; z-index: 1;">
+    <script>
+        // données récupérer dans la Base de donnée
+        const adresse = '<?= $unResto['numAdrR']." ".$unResto['voieAdrR']; ?>';
+        const ville = '<?= $unResto['villeR']; ?>';
 
-<script>
-    // données récupérer dans la Base de donnée
-    const adresse = '<?= $unResto['numAdrR']." ".$unResto['voieAdrR']; ?>';
-    const ville = '<?= $unResto['villeR']; ?>';
+        // API (requête) adresse et ville -> Longitude, latitude
+        const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${adresse}, ${ville}`;
 
-    // API (requête) adresse et ville -> Longitude, latitude
-    const apiUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${adresse}, ${ville}`;
+        // execution de l'API en Js
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Réponse de l'API:", data);
 
-    // execution de l'API en Js
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log("Réponse de l'API:", data);
+                // récupération des données par l'API
+                const latitude = data[0].lat;
+                const longitude = data[0].lon;
 
-            // récupération des données par l'API
-            const latitude = data[0].lat;
-            const longitude = data[0].lon;
+                // Coordonnée en console
+                console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
 
-            // Coordonnée en console
-            console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                // Initialiser la carte Leaflet
+                const mymap = L.map('map').setView([latitude, longitude], 13);
 
-            // Initialiser la carte Leaflet
-            const mymap = L.map('map').setView([latitude, longitude], 13);
+                // Ajouter une couche de carte OSM
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(mymap);
 
-            // Ajouter une couche de carte OSM
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(mymap);
+                // Ajouter un marqueur à la position spécifiée
+                L.marker([latitude, longitude]).addTo(mymap);
+            })
+            // Erreur
+            .catch(error => console.error("Erreur lors de la requête:", error));
 
-            // Ajouter un marqueur à la position spécifiée
-            L.marker([latitude, longitude]).addTo(mymap);
-        })
-        // Erreur
-        .catch(error => console.error("Erreur lors de la requête:", error));
-
-</script>
-
+    </script>
+</div>
 
 <h2 id="photos">
     Photos

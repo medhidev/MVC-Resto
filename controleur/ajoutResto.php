@@ -3,40 +3,55 @@
 if ( $_SERVER["SCRIPT_FILENAME"] == __FILE__ ){
     $racine="..";
 }
-session_start();
 
-if ($_SESSION["restaurateur"]){
+include "$racine/modele/bd.resto.inc.php";
+include "$racine/modele/authentification.inc.php";
+
+if (isLoggedOn() && $_SESSION["restaurateur"]){
+
     if (isset($_POST["creerResto"])){
-        // Ajout du restaurant
-        // $nom =
-        // $num_adresse
-        // $nom_adresse
-        // $cp, $ville
-        // $description
-        // $midiSdeb
-        // $midiSfin
-        // $midiWdeb
-        // $midiWfin
-        // $soirSdeb
-        // $soirSfin
-        // $soirWdeb
-        // $soirWfin
-        // $emporterSdeb
-        // $emporterSfin
-        // $emporterWdeb
-        // $emporterWfin
 
-        // insertResto($nom, $num_adresse, $nom_adresse, $cp, $ville, $description
-        // , $midiSdeb, $midiSfin, $midiWdeb, $midiWfin
-        // , $soirSdeb, $soirSfin, $soirWdeb, $soirWfin
-        // , $emporterSdeb, $emporterSfin, $emporterWdeb, $emporterWfin);
+        // information récupérer pour l'ajout du restaurant
+        $nom = $_POST["nomR"];
+        $num_adresse = $_POST["numAdr"];
+        $nom_adresse = $_POST["nomAdr"];
+        $cp = $_POST["cpR"];
+        $ville = $_POST["villeR"];
+        $description = $_POST["descR"];
+        $midiSdeb = $_POST["heureDebMidiSem"];
+        $midiSfin = $_POST["heureFinMidiSem"];
+        $midiWdeb = $_POST["heureDebMidiWeek"];
+        $midiWfin = $_POST["heureFinMidiWeek"];
+        $soirSdeb = $_POST["heureDebSoirSem"];
+        $soirSfin = $_POST["heureFinSoirSem"];
+        $soirWdeb = $_POST["heureDebSoirWeek"];
+        $soirWfin = $_POST["heureFinSoirWeek"];
+        $emporterSdeb = $_POST["heureDebEmpSem"];
+        $emporterSfin = $_POST["heureFinEmpSem"];
+        $emporterWdeb = $_POST["heureDebEmpWeek"];
+        $emporterWfin = $_POST["heureFinEmpWeek"];
 
-        // if ()
+        try {
+            insertResto($nom, $num_adresse, $nom_adresse, $cp, $ville, $description
+            , $midiSdeb, $midiSfin, $midiWdeb, $midiWfin
+            , $soirSdeb, $soirSfin, $soirWdeb, $soirWfin
+            , $emporterSdeb, $emporterSfin, $emporterWdeb, $emporterWfin);
+
+            echo "<div style='color: green;'>creation du restaurant avec succès !</div>";
+        } catch (Exception $e){
+            // erreur
+            print "Erreur: ".$e->getMessage();
+            die();
+        }
+        
     }
-}
 
-$titre = "Ajout resto";
-include "$racine/vue/entete.html.php";
-include "$racine/vue/vueAjoutResto.php";
+    $titre = "Ajout resto";
+    include "$racine/vue/entete.html.php";
+    include "$racine/vue/vueAjoutResto.php";
+}
+else {
+    echo "$racine/vue/vueListeRestos.php";
+}
 
 ?>

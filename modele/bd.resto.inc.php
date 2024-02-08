@@ -122,7 +122,8 @@ function insertResto($nom, $num_adresse, $nom_adresse, $cp, $ville, $description
         <table>
             <thead>
                 <tr>
-                    <th>Ouverture</th><th>Semaine</th>	<th>Week-end</th>
+                    <th>Ouverture</th><th>Semaine</th>
+                    <th>Week-end</th>
                 </tr>
             </thead>
             <tbody>
@@ -144,19 +145,20 @@ function insertResto($nom, $num_adresse, $nom_adresse, $cp, $ville, $description
             </tbody>
         </table>";
 
-        $request = "insert into resto(`nomR`, `numAdrR`, `voieAdrR`, `cpR`, `villeR`, `descR`, `horairesR`
-        values (':nom', :num_adresse, ':nom_adresse', :cp, ':ville', ':description', );";
+        $request = "insert into resto(`nomR`, `numAdrR`, `voieAdrR`, `cpR`, `villeR`, `descR`, `horairesR`)
+        values (:nom, :num_adresse, :nom_adresse, :cp, :ville, :description, :horaire);";
 
         $req = $cnx->prepare($request);
+        // var_dump();
 
-        // paramètres
+        // paramètres $nom, $num_adresse, $nom_adresse, $cp, $ville, $description
         $req->bindValue(':nom', $nom, PDO::PARAM_STR);
-        $req->bindValue(':num_adresse', $num_adresse, PDO::PARAM_INT);
+        $req->bindValue(':num_adresse', $num_adresse, PDO::PARAM_STR);
         $req->bindValue(':nom_adresse', $nom_adresse, PDO::PARAM_STR);
-        $req->bindValue(':cp', $cp, PDO::PARAM_INT);
-        $req->bindValue(':mailU', $ville, PDO::PARAM_STR);
-        $req->bindValue(':mailU', $description, PDO::PARAM_STR);
-        $req->bindValue(':mailU', $tableau_horaire, PDO::PARAM_STR);
+        $req->bindValue(':cp', $cp, PDO::PARAM_STR);
+        $req->bindValue(':ville', $ville, PDO::PARAM_STR);
+        $req->bindValue(':description', $description, PDO::PARAM_STR);
+        $req->bindValue(':horaire', $tableau_horaire, PDO::PARAM_STR);
         $req->execute();
 
     } catch (PDOException $e) {
