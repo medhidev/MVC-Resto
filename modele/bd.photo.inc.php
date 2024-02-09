@@ -24,6 +24,27 @@ function getPhotosByIdR($idR) {
     return $resultat;
 }
 
+// Méthode d'ajout des photos
+function addPhotos($nomPhoto, $idResto){
+    $resultat = array();
+
+    try {
+        $cnx = connexionPDO();
+        $request = "insert into photo values (:nom, :idR);";
+        $req = $cnx->prepare($request);
+
+        // insertion des différent paramètre
+        $req->bindValue(':nom', $nomPhoto, PDO::PARAM_STR);
+        $req->bindValue(':idR', $idResto, PDO::PARAM_INT);
+        $req->execute();
+
+    } catch (PDOException $e) {
+        print "Erreur !: " . $e->getMessage();
+        die();
+    }
+
+    return $resultat;
+}
 
 
 if ($_SERVER["SCRIPT_FILENAME"] == __FILE__) {

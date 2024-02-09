@@ -211,7 +211,7 @@ CREATE TABLE `resto` (
   `descR` text,
   `horairesR` text,
   PRIMARY KEY (`idR`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 --
@@ -323,12 +323,6 @@ ALTER TABLE `preferer`
 ALTER TABLE `proposer`
   ADD PRIMARY KEY (`idR`,`idTC`),
   ADD KEY `idTC` (`idTC`);
-
---
--- Index pour la table `resto`
---
-ALTER TABLE `resto`
-  ADD PRIMARY KEY (`idR`);
 
 --
 -- Index pour la table `typeCuisine`

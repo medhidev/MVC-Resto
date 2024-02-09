@@ -32,7 +32,7 @@
 
     <!-- Bouton personnalisé -->
     <label for="imageUpload" class="button">Image resto</label>
-    <input type="file" accept="image/*" id="imageUpload" class="hidden-input" onchange="previewImage(event)"><br><br><br>
+    <input type="file" accept="image/*" name="imageUpload" id="imageUpload" class="hidden-input" onchange="previewImage(event)"><br><br><br>
 
     <!-- preview de l'image (optionnel) -->
     <img id="preview" src="#" alt="Image preview" style="max-width: 300px; max-height: 300px;"><br><br>
